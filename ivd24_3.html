@@ -1,0 +1,73 @@
+<DOCTYPE html>
+    <html>
+
+    <head>
+        <title>IVD24_3</title>
+        <meta charset='utf-8' />
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style type="text/css">
+            .title {
+                background-color: #94c120;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="columns" id="app">
+            <div class="column is-two-thirds">
+                <section class="section">
+                    <h1 class="title">Ivd24</h1>
+
+                    <!-- form starts here -->
+                    <section class="form">
+                        <button @click="fetch"> Fetch </button>
+                        <p>
+                            <input v-model="firstName" placeholder="First name">
+                            <input v-model="lastName" placeholder="Last name">
+                        </p>
+                        <p>
+                            <input v-model="address" placeholder="Address">
+                        </p>
+                        <p>
+                            <input type="text" v-model="city" placeholder="City" required>
+                            <input type="text" v-model="zip" placeholder="ZIP" title="Five digit zip code">
+                        </p>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    firstName: "",
+                    lastName: "",
+                    address: "",
+                    city: "",
+                    zip: "",
+                },
+                methods: {
+                    fetch() {
+                        const queryString = window.location.search;
+                        const urlParams = new URLSearchParams(queryString);
+                        const jsonString = urlParams.get('varid');
+                        console.log(jsonString);
+                        var obj = JSON.parse(jsonString);
+                        this.firstName = obj.firstName;
+                        this.lastName = obj.lastName;
+                        this.address = obj.address;
+                        this.city = obj.city;
+                        this.zip = obj.zip;
+                        console.log(obj);
+                    },
+                }
+            })
+        </script>
+
+    </body>
+
+    </html>

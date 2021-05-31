@@ -1,0 +1,97 @@
+<DOCTYPE html>
+    <html>
+
+    <head>
+        <title>IVD24_2</title>
+        <meta charset='utf-8' />
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style type="text/css">
+            .title {
+                background-color: #94c120;
+                text-align: center;
+            }
+
+            input:invalid {
+                border: 2px dashed red;
+            }
+
+            input:valid {
+                border: 2px solid black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="columns" id="app">
+            <div class="column is-two-thirds">
+                <section class="section">
+                    <h1 class="title">Ivd24</h1>
+
+                    <!-- form starts here -->
+                    <section>
+                        <form id="example-form" @submit.prevent="processForm">
+                            <p>
+                                <input v-model="firstName" placeholder="First name" pattern="[a-zA-Z]+" required>
+                                <input v-model="lastName" placeholder="Last name" pattern="[a-zA-Z]+" required>
+                            </p>
+                            <p>
+                                <input v-model="address" placeholder="Address" pattern="[a-zA-Z]+" required>
+                            </p>
+                            <p>
+                                <input type="text" v-model="city" placeholder="City" required>
+                                <input type="text" v-model="zip" placeholder="ZIP" pattern="[0-9]{5}"
+                                    title="Five digit zip code" required>
+                            </p>
+                            <p>
+                                <button type="submit">Submit</button>
+                            </p>
+                        </form>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+
+        <script>
+            const app = new Vue({
+                el: '#example-form',
+                data: {
+                    firstName: "",
+                    lastName: "",
+                    address: "",
+                    city: "",
+                    zip: "",
+                    result: ""
+                },
+                methods: {
+                    processForm: function () {
+                        console.log({ firstName: this.firstName, zip: this.zip });
+                        var obj = new Object();
+                        obj.firstName = this.firstName;
+                        obj.lastName = this.lastName;
+                        obj.address = this.address;
+                        obj.city = this.city;
+                        obj.zip = this.zip;
+                        var jsonString = JSON.stringify(obj);
+                        console.log(jsonString);
+                        var path = "/ivd24/ivd24_3.html?varid=" + encodeURIComponent(jsonString);
+                        window.location.href = path;
+
+                        /**const requestOptions = {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: jsonString
+                        };
+
+                        fetch("https://VS_Code_Workspace/ivd24_3.html", requestOptions)
+                            .then(response => response.json())
+                            .then(data => (this.result = data.id));*/
+                    }
+                }
+            })
+        </script>
+
+    </body>
+
+    </html>

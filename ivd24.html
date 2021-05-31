@@ -1,0 +1,75 @@
+<DOCTYPE html>
+    <html>
+
+    <head>
+        <title>IVD24</title>
+        <meta charset='utf-8' />
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style type="text/css">
+            .title {
+                background-color: #94c120;
+                text-align: center;
+            }
+
+            .x {
+                color: red;
+                border: 0px;
+                background-color: white;
+            }
+
+            ul {
+                list-style-type: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="columns" id="app">
+            <div class="column is-two-thirds">
+                <section class="section">
+                    <h1 class="title">Ivd24</h1>
+
+                    <!-- form starts here -->
+                    <section class="form">
+                        <input v-model="todo" placeholder="Füge hier TODO hinzu">
+                        <button @click="addRow"> Add TODO </button>
+                        <ul id="v-for-object" class="demo">
+                            <li v-for="(item, index) in todoList">
+                                <input type="checkbox" value=item.to_do>
+                                <label>{{ item.to_do }}</label>
+                                <button class="x" @click="removeRow(index)">X</button>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    todo: "",
+                    todoList: [
+                        { to_do: 'Open this guide' },
+                        { to_do: 'Read this guide' },
+                        { to_do: 'Code this guide' },
+                        { to_do: 'Programm this guide' },
+                    ]
+                },
+                methods: {
+                    addRow() {
+                        this.todoList.push({ to_do: this.todo });
+                    },
+                    removeRow(index) {
+                        this.todoList.splice(index, 1)
+                    }
+                }
+            })
+        </script>
+
+    </body>
+
+    </html>
